@@ -2,7 +2,8 @@ const { api, updateToken } = require('./axios');
 
 
 const createNewUser = async data => {
-  const user = {
+  const userData = {
+    user: {
       first_name: data.first_name,
       last_name: data.last_name,
       email: data.email,
@@ -11,9 +12,10 @@ const createNewUser = async data => {
       is_boss: data.is_boss,
       trade_id: 1,
       company_id: 1
+    }
   }
-  console.log(user);
-  const respData = await api.post(`/users`, user);
+  console.log(userData);
+  const respData = await api.post(`/users`, userData);
   return respData.data;
 };
 
@@ -22,13 +24,20 @@ const editUser = async (id, edits) => {
   return respData.data;
 };
 
-const loginUser = async user => {
-  const respData = await api.post(`/users/`, user);
-  return respData.data;
+const loginUser = async data => {
+  const userData = {
+    auth: {
+      email: data.email,
+      password: data.password,
+    }
+  }
+  const respData = await api.post(`/user_token`, userData);
+  updateToken(respData.data.jwt)
+  return respData.data
 };
 
 const createNewTask = async user => {
-  const respData = await api.post(`/users`, user);
+  const respData = await api.post(`/`, user);
   return respData.data;
 };
 

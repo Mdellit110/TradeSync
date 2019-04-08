@@ -3,12 +3,12 @@ class User < ApplicationRecord
   belongs_to :trade
   has_many :tasks
   has_secure_password
-  validates :first_name, :last_name, :email, :password, :is_boss, :phone_number, presence: true
+  validates :first_name, :last_name, :email, :phone_number, presence: true
 
   def to_token_payload
     {
       sub: id,
-      email: email
+      email: email,
     }
   end
 end

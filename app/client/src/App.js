@@ -52,7 +52,6 @@ class App extends Component {
     e.preventDefault();
     const currentUser = await createNewUser(this.state.userFormData);
     this.setState((prevState, newState) => ({
-      currentUser: currentUser.user,
       userFormData: {
         username: "",
         first_name: "",
@@ -65,13 +64,13 @@ class App extends Component {
   }
   async onLogin(e) {
     e.preventDefault();
-    const currentUser = await loginUser(this.state.loginFormData);
+    const token = await loginUser(this.state.loginFormData);
+
     this.setState({
       loginFormData: {
         email: "",
         password: ""
-      },
-      currentUser: currentUser.user,
+      }
     });
   }
   async newTask(e) {
