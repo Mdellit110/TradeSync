@@ -10,7 +10,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_07_140644) do
+ActiveRecord::Schema.define(version: 2019_04_07_144837) do
+
+  create_table "companies", force: :cascade do |t|
+    t.string "name"
+    t.string "location"
+    t.string "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.integer "invoice"
+    t.string "location"
+    t.boolean "is_emergency"
+    t.integer "priority"
+    t.text "description"
+    t.integer "est_time"
+    t.integer "act_time"
+    t.integer "num_workers"
+    t.time "start_time"
+    t.boolean "is_complete"
+    t.boolean "in_review"
+    t.datetime "created_at", null: false
+    t.datetiime "updated_at", null: false
+  end
+
+  create_table "trades", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "first_name"
@@ -20,6 +50,7 @@ ActiveRecord::Schema.define(version: 2019_04_07_140644) do
     t.string "phone_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "is_boss"
   end
 
 end
