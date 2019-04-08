@@ -1,5 +1,6 @@
 class User < ApplicationRecord
-  has_one :company
+  belongs_to :company
+  belongs_to :trade
   has_many :tasks
   has_secure_password
   validates :first_name, :last_name, :email, :password, :is_boss, :phone_number, presence: true

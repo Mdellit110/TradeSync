@@ -10,12 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_07_144837) do
+ActiveRecord::Schema.define(version: 2019_04_08_202003) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "companies", force: :cascade do |t|
     t.string "name"
     t.string "location"
-    t.string "type"
+    t.string "company_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -33,7 +36,11 @@ ActiveRecord::Schema.define(version: 2019_04_07_144837) do
     t.boolean "is_complete"
     t.boolean "in_review"
     t.datetime "created_at", null: false
-    t.datetiime "updated_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "completed_by_id"
+    t.bigint "trade_id"
+    t.index ["completed_by_id"], name: "index_tasks_on_completed_by_id"
+    t.index ["trade_id"], name: "index_tasks_on_trade_id"
   end
 
   create_table "trades", force: :cascade do |t|
@@ -51,6 +58,14 @@ ActiveRecord::Schema.define(version: 2019_04_07_144837) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "is_boss"
+    t.bigint "trade_id"
+    t.bigint "company_id"
+    t.index ["company_id"], name: "index_users_on_company_id"
+    t.index ["trade_id"], name: "index_users_on_trade_id"
   end
 
+  add_foreign_key "tasks", "trades"
+  add_foreign_key "tasks", "users", column: "completed_by_id"
+  add_foreign_key "users", "companies"
+  add_foreign_key "users", "trades"
 end
