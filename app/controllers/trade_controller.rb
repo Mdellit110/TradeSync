@@ -1,5 +1,12 @@
 class TradeController < ApplicationController
 
+  # GET /trades
+  def index
+    @trades = Trade.all
+
+    render json: @trades
+  end
+
   # POST /trades
   def create
     @trade = Trade.new(trade_params)

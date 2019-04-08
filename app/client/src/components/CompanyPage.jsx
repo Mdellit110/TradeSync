@@ -5,7 +5,8 @@ import TradesList from './TradesList';
 export default props => {
   return (
     <div className='company-trades-container'>
-      <TradesList/>
+      <TradesList
+        trades={props.trades}/>
     </div>
   )
 }

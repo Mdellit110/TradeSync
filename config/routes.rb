@@ -3,5 +3,6 @@ Rails.application.routes.draw do
   resources :users
   post 'company' => 'company#create'
   post 'trade' => 'trade#create'
+  get 'trade' => 'trade#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

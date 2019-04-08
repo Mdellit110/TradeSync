@@ -6,6 +6,7 @@ import CompanyPage from "./components/CompanyPage";
 import TradePage from "./components/TradePage";
 import TaskForm from "./components/TaskForm";
 import { Route, withRouter } from 'react-router-dom';
+import {fetchTrades} from './services/trades'
 import {
   createNewUser,
   loginUser,
@@ -16,6 +17,7 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      trades: [],
       taskFormData: {
         invoice: '',
         location: '',
@@ -132,6 +134,13 @@ class App extends Component {
      },
    }))
   }
+
+  async componentDidMount() {
+    const trades = await fetchTrades()
+    this.setState({
+      trades
+    })
+  }
   render() {
     return (
       <div className="App">
@@ -156,13 +165,14 @@ class App extends Component {
             exact
             path="/company/1"
             render={props => (
-              <CompanyPage/>
+              <CompanyPage
+                trades={this.state.trades}/>
               )
             }
           />
           <Route
             exact
-            path="/company/1/trades/1"
+            path="/company/1/trades/:trade_id"
             render={props => (
               <TradePage/>
               )
@@ -170,7 +180,7 @@ class App extends Component {
           />
           <Route
             exact
-            path="/company/1/trades/1/new-task"
+            path="/company/1/trades/:trade_id/new-task"
             render={props => (
               <TaskForm
                 taskFormData={this.state.taskFormData}
