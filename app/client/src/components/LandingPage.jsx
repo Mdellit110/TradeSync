@@ -1,26 +1,27 @@
 import React from "react";
-import { Route } from 'react-router-dom';
 import LoginForm from './LoginForm';
 import UserForm from './UserForm';
 export default props => {
-  const { userFormData, loginFormData, onChange, onRegister, onLogin } = props;
-  const { first_name, last_name, phone_number, email, password } = userFormData;
+  const { userFormData, loginFormData, toggle, onRegisterChange, onLoginChange, onRegister, onLogin } = props;
+  const { first_name, last_name, phone_number, email, password, is_boss } = userFormData;
 
   return (
     <div className="landing-page">
       <LoginForm
         email={loginFormData.email}
         password={loginFormData.password}
-        onChange={onChange}
+        onChange={onLoginChange}
         onSubmit={onLogin}
         />
       <UserForm
         firstName={first_name}
         lastName={last_name}
         phoneNumber={phone_number}
+        position={is_boss}
+        toggle={toggle}
         email={email}
         password={password}
-        onChange={onChange}
+        onChange={onRegisterChange}
         onSubmit={onRegister}
         />
     </div>

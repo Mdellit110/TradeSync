@@ -1,10 +1,10 @@
 import React from 'react';
-
-export default props => {
-  const { first_name, last_name, phone_number, email, password, onChange, onSubmit} = props;
+import {withRouter} from 'react-router-dom';
+const UserForm = props => {
+  const { first_name, last_name, phone_number, position, email, password, toggle, onChange, onSubmit} = props;
   return (
     <form onSubmit={onSubmit}>
-      <h2>Login</h2>
+      <h2>Register</h2>
       <div className='user-form-input'>
         <label htmlFor="first_name">First Name</label>
         <input
@@ -26,13 +26,13 @@ export default props => {
         />
       </div>
       <div className='user-form-input'>
-        <label htmlFor="position">Position/Role</label>
+        <label htmlFor="is_boss">are you the Boss?</label>
         <input
-          id='position'
-          type="text"
-          onChange={onChange}
-          name="position"
-          value={position}
+          id='is_boss'
+          type="checkbox"
+          onClick={toggle}
+          name="is_boss"
+          value={!position}
           />
       </div>
       <div className='user-form-input'>
@@ -68,11 +68,8 @@ export default props => {
       <button type="submit">
         Register
       </button>
-      <p id='login-register-button'> already have an account?
-        <button onClick={props.history.push(`/home/login`)}>
-          Login
-        </button>
-      </p>
     </form>
   )
 }
+
+export default withRouter(UserForm)

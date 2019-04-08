@@ -1,6 +1,6 @@
 import React from "react";
-
-export default props => {
+import {withRouter} from 'react-router-dom';
+const LoginForm = props => {
   const { email, password, onChange, onSubmit, submitButton } = props;
   return (
     <div className="user-form-container">
@@ -31,12 +31,9 @@ export default props => {
         <button type="submit">
           Sign In
         </button>
-        <p id='register'> Don't have an account?
-          <button onClick={props.history.push(`/home/register`)}>
-            Register
-          </button>
-        </p>
       </form>
     </div>
   )
 }
+
+export default withRouter(LoginForm)
