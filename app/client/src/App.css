@@ -66,6 +66,11 @@
   margin: .1%;
   background-color: white;
 }
+.row-details-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 @keyframes App-logo-spin {
   from {

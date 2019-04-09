@@ -8,7 +8,11 @@ import TaskForm from "./components/TaskForm";
 import { Route, withRouter } from 'react-router-dom';
 import decode from 'jwt-decode';
 import {fetchTrades} from './services/trades';
-import {fetchTasks, createTask} from './services/tasks';
+import {
+  fetchTasks,
+  createTask,
+  setTaskToUser,
+} from './services/tasks';
 import {
   createNewUser,
   loginUser,
@@ -23,6 +27,7 @@ class App extends Component {
       is_active: false,
       currentUser: null,
       trades: [],
+      tasks: [],
       taskFormData: {
         invoice: '',
         location: '',
@@ -56,13 +61,14 @@ class App extends Component {
     this.toggle = this.toggle.bind(this)
     this.toggleTask = this.toggleTask.bind(this)
     this.getTasks = this.getTasks.bind(this)
+    this.activateTask = this.activateTask.bind(this)
   }
 
   async onRegister(e) {
     e.preventDefault();
     const token = await createNewUser(this.state.userFormData);
-    const currentUser = decode(token.jwt);
     await loginUser(this.state.userFormData);
+    const currentUser = this.handleCurrentUser()
     this.setState((prevState, newState) => ({
       currentUser,
       userFormData: {
@@ -78,10 +84,10 @@ class App extends Component {
   async onLogin(e) {
     e.preventDefault();
     const token = await loginUser(this.state.loginFormData);
-    const currentUser = decode(token.jwt)
+    const currentUser = this.handleCurrentUser()
     this.setState({
-      is_active: true,
       currentUser,
+      is_active: true,
       loginFormData: {
         email: "",
         password: ""
@@ -89,8 +95,13 @@ class App extends Component {
     });
   }
   async newTask(trade_id) {
+    console.log(trade_id);
     const task = await createTask(trade_id, this.state.taskFormData);
     this.setState((prevState, newState) => ({
+      tasks: [
+        ...prevState.tasks,
+        task
+      ],
       taskFormData: {
         invoice: '',
         location: '',
@@ -147,21 +158,39 @@ class App extends Component {
      },
    }))
   }
+  async activateTask(task_id, trade_id, user_id) {
+    const edits = {
+      user_id
+    }
+    const taskUser = await setTaskToUser(task_id, trade_id, edits)
+  }
 
   async getTasks(id) {
-    console.log('why you no work');
+    await verifyToken();
     const tasks = await fetchTasks(id)
     this.setState({
-      tasks
+      tasks,
     })
+  }
+
+  handleCurrentUser() {
+    const token = localStorage.getItem('jwt');
+    if (token) {
+      const userData = decode(token);
+      localStorage.setItem('user', JSON.stringify(userData))
+      const currentUser = JSON.parse(localStorage.getItem('user'));
+      return currentUser
+    }
   }
 
   async componentDidMount() {
     const verified = await verifyToken();
+    const currentUser = JSON.parse(localStorage.getItem('user'))
     const trades = await fetchTrades()
     this.setState({
       is_active: verified,
-      trades
+      trades,
+      currentUser
     })
   }
   render() {
@@ -201,7 +230,11 @@ class App extends Component {
             exact
             path="/company/1/trades/:trade_id"
             render={props => (
-              <TradePage/>
+              <TradePage
+                currentUser={this.state.currentUser}
+                onClick={this.activateTask}
+                getTasks={this.getTasks}
+                tasks={this.state.tasks}/>
               )
             }
           />

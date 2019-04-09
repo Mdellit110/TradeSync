@@ -13,7 +13,8 @@ class User < ApplicationRecord
       last_name: last_name,
       phone_number: phone_number,
       company_id: company_id,
-      trade_id: trade_id
+      trade_id: trade_id,
+      is_boss: is_boss,
     }
   end
 end

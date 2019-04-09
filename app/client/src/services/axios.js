@@ -1,5 +1,4 @@
 import axios from 'axios';
-
 const api = axios.create({
   baseURL: "http://localhost:3000"
 });
@@ -7,7 +6,6 @@ const api = axios.create({
 const updateToken = (token) => {
   localStorage.setItem('jwt', token);
   api.defaults.headers.common.authorization = `Bearer ${token}`;
-  console.log(token);
 };
 
 export {

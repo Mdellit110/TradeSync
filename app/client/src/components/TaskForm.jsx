@@ -6,7 +6,9 @@ const TaskForm = props => {
   return (
     <form onSubmit={(e) => {
         e.preventDefault();
-        onSubmit(match.params.trade_id)
+        const {trade_id, company_id} = match.params
+        onSubmit(trade_id)
+        props.history.push(`/company/1/trades/${trade_id}`)
       }}>
       <h2>Create Task</h2>
       <div className='form-input'>

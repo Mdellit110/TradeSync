@@ -6,6 +6,6 @@ Rails.application.routes.draw do
   get 'trade' => 'trade#index'
   get 'trade/:trade_id/tasks' => 'task#index'
   post 'trade/:trade_id/task' => 'task#create'
-  put 'trade/:trade_id/tasks' => 'task#update'
+  put 'trade/:trade_id/tasks/:task_id' => 'task#update'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

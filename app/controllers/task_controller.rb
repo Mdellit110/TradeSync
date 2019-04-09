@@ -1,7 +1,7 @@
 class TaskController < ApplicationController
   before_action :authenticate_user
   before_action :set_trade
-
+  before_action :set_user, only: [:update]
   # GET trade/:trade_id/tasks
   def index
     @tasks = @trade.tasks.all
@@ -21,10 +21,11 @@ class TaskController < ApplicationController
 
   # PATCH/PUT /tasks/1
   def update
+    @task = Task.find(params[:task_id])
     if @task.update(task_params)
-      render json: @user
+      render json: @task
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: @task.errors, status: :unprocessable_entity
     end
   end
 
@@ -33,8 +34,11 @@ class TaskController < ApplicationController
     def set_trade
       @trade = Trade.find(params[:trade_id])
     end
+    def set_user
+      @user = User.find(task_params[:completed_by_id])
+    end
     # Only allow a trusted parameter "white list" through.
     def task_params
-      params.require(:task).permit(:invoice, :location, :is_emergency, :priority, :description, :est_time, :num_workers, :act_time, :start_time, :is_complete, :in_review)
+      params.require(:task).permit(:completed_by_id, :invoice, :location, :is_emergency, :priority, :description, :est_time, :num_workers, :act_time, :start_time, :is_complete, :in_review)
     end
 end
