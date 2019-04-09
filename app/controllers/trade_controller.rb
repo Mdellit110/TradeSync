@@ -3,8 +3,7 @@ class TradeController < ApplicationController
   # GET /trades
   def index
     @trades = Trade.all
-
-    render json: @trades
+render json: @trades
   end
 
   # POST /trades

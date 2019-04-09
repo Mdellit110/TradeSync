@@ -1,6 +1,7 @@
 const { api, updateToken } = require('./axios');
 
   const fetchTasks = async (trade_id) => {
+    console.log('hit');
     const resp = await api.get(`/trade/${trade_id}/tasks`);
     return resp.data
   }

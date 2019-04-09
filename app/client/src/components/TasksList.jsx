@@ -1,7 +1,7 @@
 import React from 'react';
 import MaterialTable from 'material-table'
 export default props => {
-  const tasks = ['do this', 'do that', 'some stuff', 'fix it', 'do more']
+
   return (
     <div style={{ maxWidth: '100%' }}>
       <MaterialTable

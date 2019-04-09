@@ -1,13 +1,17 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom';
 const TradesList = props => {
-  console.log(props.trades);
-  const trades = ['plumbing', 'electrician', 'painting', 'locksmith', 'housekeeping']
+
+  const onClick = async (id) => {
+    await props.getTasks(id)
+    props.history.push(`/company/1/trades/${id}`)
+  }
+
   return (
     <>
       {
         (props.trades !== []) && props.trades.map((trade, index) => (
-          <div onClick={() => props.history.push(`/company/1/trades/${trade.id}`)} id={index} className='trade-container'>
+          <div onClick={() => onClick(trade.id)} id={index} className='trade-container'>
             <h2>{trade.name}</h2>
             <p>daily tasks:</p>
             <p>completed:</p>

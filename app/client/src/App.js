@@ -55,6 +55,7 @@ class App extends Component {
     this.newTask = this.newTask.bind(this)
     this.toggle = this.toggle.bind(this)
     this.toggleTask = this.toggleTask.bind(this)
+    this.getTasks = this.getTasks.bind(this)
   }
 
   async onRegister(e) {
@@ -147,6 +148,14 @@ class App extends Component {
    }))
   }
 
+  async getTasks(id) {
+    console.log('why you no work');
+    const tasks = await fetchTasks(id)
+    this.setState({
+      tasks
+    })
+  }
+
   async componentDidMount() {
     const verified = await verifyToken();
     const trades = await fetchTrades()
@@ -183,6 +192,7 @@ class App extends Component {
             path="/company/1"
             render={props => (
               <CompanyPage
+                getTasks={this.getTasks}
                 trades={this.state.trades}/>
               )
             }

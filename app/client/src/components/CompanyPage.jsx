@@ -6,6 +6,7 @@ export default props => {
   return (
     <div className='company-trades-container'>
       <TradesList
+        getTasks={props.getTasks}
         trades={props.trades}/>
     </div>
   )
