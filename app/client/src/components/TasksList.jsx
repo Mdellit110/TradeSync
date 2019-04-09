@@ -15,7 +15,7 @@ export default props => {
           { title: 'act. time', field: 'act_time' },
           { title: 'start time', field: 'start_time' },
         ]}
-        data={[{ name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 }]}
+        data={[]}
         title="Tasks"
       />
     </div>

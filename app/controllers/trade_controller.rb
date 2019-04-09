@@ -1,5 +1,5 @@
 class TradeController < ApplicationController
-
+  before_action :authenticate_user
   # GET /trades
   def index
     @trades = Trade.all

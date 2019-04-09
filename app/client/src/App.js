@@ -6,7 +6,8 @@ import CompanyPage from "./components/CompanyPage";
 import TradePage from "./components/TradePage";
 import TaskForm from "./components/TaskForm";
 import { Route, withRouter } from 'react-router-dom';
-import {fetchTrades} from './services/trades'
+import decode from 'jwt-decode';
+import {fetchTrades} from './services/trades';
 import {
   createNewUser,
   loginUser,
@@ -17,6 +18,7 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      currentUser: {},
       trades: [],
       taskFormData: {
         invoice: '',
@@ -50,8 +52,11 @@ class App extends Component {
   }
   async onRegister(e) {
     e.preventDefault();
-    const currentUser = await createNewUser(this.state.userFormData);
+    const token = await createNewUser(this.state.userFormData);
+    const currentUser = decode(token.jwt);
+    await loginUser(this.state.userFormData);
     this.setState((prevState, newState) => ({
+      currentUser,
       userFormData: {
         username: "",
         first_name: "",
@@ -65,8 +70,9 @@ class App extends Component {
   async onLogin(e) {
     e.preventDefault();
     const token = await loginUser(this.state.loginFormData);
-
+    const currentUser = decode(token.jwt)
     this.setState({
+      currentUser,
       loginFormData: {
         email: "",
         password: ""
@@ -143,7 +149,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <NavBar/>
+        <NavBar
+          currentUser={this.state.currentUser}
+        />
         <div className='body'>
           <Route
             path="/home"

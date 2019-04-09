@@ -9,6 +9,11 @@ class User < ApplicationRecord
     {
       sub: id,
       email: email,
+      first_name: first_name,
+      last_name: last_name,
+      phone_number: phone_number,
+      company_id: company_id,
+      trade_id: trade_id
     }
   end
 end
