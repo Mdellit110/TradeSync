@@ -1,5 +1,6 @@
 class TaskController < ApplicationController
-  before_action :authenticate_user, :set_trade
+  before_action :authenticate_user
+  before_action :set_trade
 
   # GET trade/:trade_id/tasks
   def index
@@ -12,7 +13,7 @@ class TaskController < ApplicationController
     @task = @trade.tasks.new(task_params)
 
     if @task.save!
-      render json: @task, status: :created, location: @task
+      render json: @task
     else
       render json: @task.errors, status: :unprocessable_entity
     end
