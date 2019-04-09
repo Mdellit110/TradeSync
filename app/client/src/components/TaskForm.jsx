@@ -1,10 +1,13 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom';
 const TaskForm = props => {
-  const { taskFormData, toggle, onChange, onSubmit} = props;
+  const { taskFormData, toggle, onChange, onSubmit, match} = props;
   const { invoice, location, is_emergency, priority, description, est_time, num_workers } = taskFormData
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={(e) => {
+        e.preventDefault();
+        onSubmit(match.params.trade_id)
+      }}>
       <h2>Create Task</h2>
       <div className='form-input'>
         <label htmlFor="invoice">invoice#</label>

@@ -8,17 +8,20 @@ import TaskForm from "./components/TaskForm";
 import { Route, withRouter } from 'react-router-dom';
 import decode from 'jwt-decode';
 import {fetchTrades} from './services/trades';
+import {fetchTasks, createTask} from './services/tasks';
 import {
   createNewUser,
   loginUser,
-  createNewTask
+  createNewTask,
+  verifyToken,
 } from './services/users'
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentUser: {},
+      is_active: false,
+      currentUser: null,
       trades: [],
       taskFormData: {
         invoice: '',
@@ -27,7 +30,9 @@ class App extends Component {
         priority: '',
         description: '',
         est_time: '',
-        num_workers: ''
+        num_workers: '',
+        is_complete: false,
+        in_review: false,
       },
       userFormData: {
         first_name: "",
@@ -47,9 +52,11 @@ class App extends Component {
     this.onTaskChange = this.onTaskChange.bind(this)
     this.onRegister = this.onRegister.bind(this)
     this.onLogin = this.onLogin.bind(this)
+    this.newTask = this.newTask.bind(this)
     this.toggle = this.toggle.bind(this)
     this.toggleTask = this.toggleTask.bind(this)
   }
+
   async onRegister(e) {
     e.preventDefault();
     const token = await createNewUser(this.state.userFormData);
@@ -72,6 +79,7 @@ class App extends Component {
     const token = await loginUser(this.state.loginFormData);
     const currentUser = decode(token.jwt)
     this.setState({
+      is_active: true,
       currentUser,
       loginFormData: {
         email: "",
@@ -79,9 +87,8 @@ class App extends Component {
       }
     });
   }
-  async newTask(e) {
-    e.preventDefault();
-    const addTask = await createNewTask(this.state.taskFormData);
+  async newTask(trade_id) {
+    const task = await createTask(trade_id, this.state.taskFormData);
     this.setState((prevState, newState) => ({
       taskFormData: {
         invoice: '',
@@ -141,21 +148,24 @@ class App extends Component {
   }
 
   async componentDidMount() {
+    const verified = await verifyToken();
     const trades = await fetchTrades()
     this.setState({
+      is_active: verified,
       trades
     })
   }
   render() {
     return (
       <div className="App">
-        <NavBar
-          currentUser={this.state.currentUser}
-        />
+        { this.state.is_active &&
+        <NavBar/>
+        }
         <div className='body'>
           <Route
-            path="/home"
+            path="/"
             render={props => (
+              !this.state.is_active &&
               <LandingPage
                 userFormData={this.state.userFormData}
                 loginFormData={this.state.loginFormData}

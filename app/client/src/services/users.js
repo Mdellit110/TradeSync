@@ -1,5 +1,14 @@
 const { api, updateToken } = require('./axios');
 
+const verifyToken = async () => {
+  const token = localStorage.getItem('jwt');
+  if (token == null) {
+    return false;
+  } else {
+    updateToken(token);
+    return true;
+  }
+}
 
 const createNewUser = async data => {
   const userData = {
@@ -45,5 +54,6 @@ export {
   createNewUser,
   editUser,
   loginUser,
-  createNewTask
+  createNewTask,
+  verifyToken
 }
