@@ -26,16 +26,6 @@ const UserForm = props => {
         />
       </div>
       <div className='user-form-input'>
-        <label htmlFor="is_boss">are you the Boss?</label>
-        <input
-          id='is_boss'
-          type="checkbox"
-          onClick={toggle}
-          name="is_boss"
-          value={!position}
-          />
-      </div>
-      <div className='user-form-input'>
         <label htmlFor="phone_number">Phone Number</label>
         <input
           id='phone_number'
@@ -65,6 +55,19 @@ const UserForm = props => {
           value={password}
         />
       </div>
+      <div className='user-form-input'>
+        <label htmlFor="is_boss">are you the Boss?</label>
+        <input
+          id='is_boss'
+          type="checkbox"
+          onClick={toggle}
+          name="is_boss"
+          value={!position}
+          />
+      </div>
+      {!position &&
+        <p>hi</p>
+      }
       <button type="submit">
         Register
       </button>

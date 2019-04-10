@@ -5,3 +5,14 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+company = Company.create(name: 'St. Johns Episcopal', location: 'Far Rockaways', company_type: 'Hospital')
+
+trades = Trade.create([
+  {name: 'plumbing'},
+  {name: 'electrician'},
+  {name: 'locksmith'},
+  {name: 'carpentry'},
+  {name: 'housekeeping'},
+  {name: 'painting'}
+  ])
