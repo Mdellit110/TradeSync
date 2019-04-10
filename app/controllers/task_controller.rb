@@ -5,7 +5,7 @@ class TaskController < ApplicationController
   # GET trade/:trade_id/tasks
   def index
     @tasks = @trade.tasks.all
-    render json: @tasks
+    render json: @tasks, include: @user
   end
 
   # POST trade/:trade_id/tasks
@@ -39,6 +39,6 @@ class TaskController < ApplicationController
     end
     # Only allow a trusted parameter "white list" through.
     def task_params
-      params.require(:task).permit(:completed_by_id, :invoice, :location, :is_emergency, :priority, :description, :est_time, :num_workers, :act_time, :start_time, :is_complete, :in_review)
+      params.require(:task).permit(:completed_by_id, :invoice, :location, :is_emergency, :priority, :description, :est_time, :num_workers, :end_time, :start_time, :is_complete, :in_review)
     end
 end

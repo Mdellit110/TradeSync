@@ -10,10 +10,7 @@ const { api, updateToken } = require('./axios');
     return resp.data
   }
 
-  const setTaskToUser = async (task_id, trade_id, data) => {
-    const body = {
-      completed_by_id: data.user_id
-    }
+  const setTaskToUser = async (task_id, trade_id, body) => {
     const resp = await api.put(`/trade/${trade_id}/tasks/${task_id}`, body)
   }
 

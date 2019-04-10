@@ -23,8 +23,8 @@ class TasksList extends Component  {
             { title: 'head worker', field: 'completed_by_id' },
             { title: 'workers', field: 'num_workers' },
             { title: 'est. time', field: 'est_time' },
-            { title: 'act. time', field: 'act_time' },
             { title: 'start time', field: 'start_time' },
+            { title: 'end time', field: 'end_time' },
           ]}
           data={this.props.tasks}
           title="Tasks"

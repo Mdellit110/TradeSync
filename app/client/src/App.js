@@ -158,11 +158,10 @@ class App extends Component {
      },
    }))
   }
-  async activateTask(task_id, trade_id, user_id) {
-    const edits = {
-      user_id
-    }
-    const taskUser = await setTaskToUser(task_id, trade_id, edits)
+
+  async activateTask(task_id, trade_id, body) {
+    console.log(body);
+    const taskUser = await setTaskToUser(task_id, trade_id, body)
   }
 
   async getTasks(id) {

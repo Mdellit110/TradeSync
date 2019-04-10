@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_08_202003) do
+ActiveRecord::Schema.define(version: 2019_04_10_004827) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,9 +30,9 @@ ActiveRecord::Schema.define(version: 2019_04_08_202003) do
     t.integer "priority"
     t.text "description"
     t.integer "est_time"
-    t.integer "act_time"
+    t.string "end_time"
     t.integer "num_workers"
-    t.time "start_time"
+    t.string "start_time"
     t.boolean "is_complete"
     t.boolean "in_review"
     t.datetime "created_at", null: false
