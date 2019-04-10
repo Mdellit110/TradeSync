@@ -9,10 +9,10 @@
 company = Company.create(name: 'St. Johns Episcopal', location: 'Far Rockaways', company_type: 'Hospital')
 
 trades = Trade.create([
-  {name: 'plumbing'},
-  {name: 'electrician'},
-  {name: 'locksmith'},
-  {name: 'carpentry'},
-  {name: 'housekeeping'},
-  {name: 'painting'}
+  {name: 'plumbing', company_id: 1},
+  {name: 'electrician', company_id: 1},
+  {name: 'locksmith', company_id: 1},
+  {name: 'carpentry', company_id: 1},
+  {name: 'housekeeping', company_id: 1},
+  {name: 'painting', company_id: 1}
   ])

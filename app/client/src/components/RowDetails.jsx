@@ -8,19 +8,18 @@ const RowDetails = props => {
   const onActivate = () => {
     const now = moment()
     const body = {
-      completed_by_id: currentUser.sub,
-      start_time: now.format()
+      user_id: currentUser.sub,
+      start_time: now.format('MMMM Do YYYY, h:mm:ss a')
     }
-    onClick(rowData.id, rowData.trade_id, body)
+    onClick(rowData.id, rowData.trade_id, body, true)
   }
   const onComplete = () => {
     const now = moment()
     const body = {
-      completed_by_id: currentUser.sub,
       is_complete: true,
-      end_time: now.format()
+      end_time: now.format('MMMM Do YYYY, h:mm:ss a')
     }
-    onClick(rowData.id, rowData.trade_id, body)
+    onClick(rowData.id, rowData.trade_id, body, false)
   }
   const checkUser = () => {
     if (!currentUser.is_boss && (currentUser.trade_id === rowData.trade_id)) {
@@ -30,11 +29,15 @@ const RowDetails = props => {
     }
   }
   const checkStatus = () => {
-    if (rowData.start_time && (currentUser.sub === rowData.completed_by_id)) {
+    if (rowData.is_complete){
+      return (
+        <p>{`Completed by ${rowData.user.first_name}`}</p>
+      )
+    } else if (rowData.start_time && (currentUser.sub === rowData.user_id)) {
       return (
         <button onClick={onComplete}>complete</button>
       )
-    } else if (rowData.start_time && !(currentUser.sub === rowData.completed_by_id)){
+    } else if (rowData.start_time && !(currentUser.sub === rowData.user_id)){
       return (
         <p>Active</p>
       )

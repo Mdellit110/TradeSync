@@ -1,7 +1,7 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom';
 const UserForm = props => {
-  const { first_name, last_name, phone_number, position, email, password, toggle, onChange, onSubmit} = props;
+  const { first_name, last_name, phone_number, position, email, password, toggle, onChange, onSubmit, trades} = props;
   return (
     <form onSubmit={onSubmit}>
       <h2>Register</h2>
@@ -66,7 +66,13 @@ const UserForm = props => {
           />
       </div>
       {!position &&
-        <p>hi</p>
+        <select onChange={onChange} name="trade_id">
+          {
+            trades.map((trade, index) => (
+              <option value={trade.id}>{trade.name}</option>
+            ))
+          }
+        </select>
       }
       <button type="submit">
         Register

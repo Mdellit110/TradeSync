@@ -1,6 +1,11 @@
 class CompanyController < ApplicationController
 
   # POST /companies
+  def show
+    @company = Company.find(params[:company_id])
+    render json: @company
+  end
+
   def create
     @company = Company.new(company_params)
 

@@ -13,13 +13,7 @@ const verifyToken = async () => {
 const createNewUser = async data => {
   const userData = {
     user: {
-      first_name: data.first_name,
-      last_name: data.last_name,
-      email: data.email,
-      password: data.password,
-      phone_number: data.phone_number,
-      is_boss: data.is_boss,
-      trade_id: 1,
+      ...data,
       company_id: 1
     }
   }

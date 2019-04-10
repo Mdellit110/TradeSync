@@ -2,7 +2,7 @@ import React from "react";
 import LoginForm from './LoginForm';
 import UserForm from './UserForm';
 export default props => {
-  const { userFormData, loginFormData, toggle, onRegisterChange, onLoginChange, onRegister, onLogin } = props;
+  const { userFormData, loginFormData, toggle, onRegisterChange, onLoginChange, onRegister, onLogin, trades } = props;
   const { first_name, last_name, phone_number, email, password, is_boss } = userFormData;
 
   return (
@@ -23,6 +23,7 @@ export default props => {
         password={password}
         onChange={onRegisterChange}
         onSubmit={onRegister}
+        trades={trades}
         />
     </div>
   )

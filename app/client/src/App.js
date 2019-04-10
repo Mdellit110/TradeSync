@@ -12,6 +12,7 @@ import {
   fetchTasks,
   createTask,
   setTaskToUser,
+  completeTask
 } from './services/tasks';
 import {
   createNewUser,
@@ -25,7 +26,7 @@ class App extends Component {
     super(props)
     this.state = {
       is_active: false,
-      currentUser: null,
+      currentUser: {},
       trades: [],
       tasks: [],
       taskFormData: {
@@ -46,6 +47,7 @@ class App extends Component {
         is_boss: false,
         email: "",
         password: "",
+        trade_id: "1"
       },
       loginFormData: {
         email: "",
@@ -61,7 +63,7 @@ class App extends Component {
     this.toggle = this.toggle.bind(this)
     this.toggleTask = this.toggleTask.bind(this)
     this.getTasks = this.getTasks.bind(this)
-    this.activateTask = this.activateTask.bind(this)
+    this.updateTask = this.updateTask.bind(this)
   }
 
   async onRegister(e) {
@@ -69,6 +71,7 @@ class App extends Component {
     const token = await createNewUser(this.state.userFormData);
     await loginUser(this.state.userFormData);
     const currentUser = this.handleCurrentUser()
+    this.props.history.push('/company/1')
     this.setState((prevState, newState) => ({
       currentUser,
       userFormData: {
@@ -77,14 +80,16 @@ class App extends Component {
         last_name: "",
         is_boss: false,
         email: "",
-        password: ""
+        password: "",
+        trade_id: "1"
       },
     }));
   }
   async onLogin(e) {
     e.preventDefault();
     const token = await loginUser(this.state.loginFormData);
-    const currentUser = this.handleCurrentUser()
+    const currentUser = this.handleCurrentUser();
+    this.props.history.push('/company/1')
     this.setState({
       currentUser,
       is_active: true,
@@ -159,9 +164,16 @@ class App extends Component {
    }))
   }
 
-  async activateTask(task_id, trade_id, body) {
-    console.log(body);
-    const taskUser = await setTaskToUser(task_id, trade_id, body)
+  async updateTask(task_id, trade_id, body, start) {
+    if (start) {
+      const taskUser = await setTaskToUser(task_id, trade_id, body);
+    } else {
+      const taskUser = await completeTask(task_id, trade_id, body)
+    }
+    const tasks = await fetchTasks(trade_id);
+    this.setState({
+      tasks
+    })
   }
 
   async getTasks(id) {
@@ -195,15 +207,15 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        { this.state.is_active &&
-        <NavBar/>
-        }
+        <NavBar
+          currentUser={this.state.currentUser}/>
         <div className='body'>
           <Route
             path="/"
             render={props => (
-              !this.state.is_active &&
+              !localStorage.getItem('jwt') &&
               <LandingPage
+                trades={this.state.trades}
                 userFormData={this.state.userFormData}
                 loginFormData={this.state.loginFormData}
                 onRegisterChange={this.onRegisterChange}
@@ -231,7 +243,7 @@ class App extends Component {
             render={props => (
               <TradePage
                 currentUser={this.state.currentUser}
-                onClick={this.activateTask}
+                onClick={this.updateTask}
                 getTasks={this.getTasks}
                 tasks={this.state.tasks}/>
               )

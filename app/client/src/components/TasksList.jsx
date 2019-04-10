@@ -14,22 +14,21 @@ class TasksList extends Component  {
 
   render() {
     return (
-      <div style={{ maxWidth: '100%' }}>
+      <div className='material-table'>
         <MaterialTable
           columns={[
-            { title: 'invoice#', field: 'invoice' },
-            { title: 'priority', field: 'priority' },
-            { title: 'location', field: 'location' },
-            { title: 'head worker', field: 'completed_by_id' },
-            { title: 'workers', field: 'num_workers' },
-            { title: 'est. time', field: 'est_time' },
-            { title: 'start time', field: 'start_time' },
-            { title: 'end time', field: 'end_time' },
+            { title: 'Work Order', field: 'invoice' },
+            { title: 'Priority', field: 'priority' },
+            { title: 'Location', field: 'location' },
+            { title: 'Employee', field: 'user.first_name' },
+            { title: 'Workers', field: 'num_workers' },
+            { title: 'Est. Time', field: 'est_time' },
+            { title: 'Start Time', field: 'start_time' },
+            { title: 'End Time', field: 'end_time' },
           ]}
           data={this.props.tasks}
-          title="Tasks"
+          title='Tasks'
           detailPanel={rowData => {
-            console.log(rowData);
             return (
               <RowDetails
                 currentUser={this.props.currentUser}

@@ -3,7 +3,7 @@
 }
 .body {
   width: 100vw;
-  height: 90vh;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -70,6 +70,19 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+}
+.trade_tasks_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10%;
+  padding: 5% 0 5% 0;
+}
+.material-table {
+  width: 80vw;
+  margin: 0;
+  padding: 0;
 }
 
 @keyframes App-logo-spin {
