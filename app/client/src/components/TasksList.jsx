@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import MaterialTable from 'material-table'
 import {withRouter} from 'react-router-dom';
-import RowDetails from './RowDetails'
+import RowDetails from './RowDetails';
+const moment = require('moment');
 class TasksList extends Component  {
   constructor(props) {
     super(props);
@@ -13,20 +14,25 @@ class TasksList extends Component  {
   }
 
   render() {
+    const tasks = this.props.tasks.map(task => (
+        task = {
+          ...task,
+          created_at: moment(task.created_at).format('MMMM Do YYYY, h:mm:ss a')
+        }
+      ))
     return (
       <div className='material-table'>
         <MaterialTable
           columns={[
             { title: 'Work Order', field: 'invoice' },
             { title: 'Priority', field: 'priority' },
-            { title: 'Location', field: 'location' },
             { title: 'Employee', field: 'user.first_name' },
-            { title: 'Workers', field: 'num_workers' },
             { title: 'Est. Time', field: 'est_time' },
+            { title: 'Posted At', field: 'created_at' },
             { title: 'Start Time', field: 'start_time' },
             { title: 'End Time', field: 'end_time' },
           ]}
-          data={this.props.tasks}
+          data={tasks}
           title='Tasks'
           detailPanel={rowData => {
             return (

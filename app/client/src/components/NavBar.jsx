@@ -10,6 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+
 const styles = {
   root: {
     flexGrow: 1,
@@ -56,8 +57,7 @@ class NavBar extends Component {
     }
     console.log(open);
     return (
-      <div className='navbar'>
-        <AppBar position="static">
+        <AppBar color='primary' position="static">
          <Toolbar>
            <IconButton
               aria-owns={open ? 'menu-appbar' : undefined}
@@ -96,7 +96,6 @@ class NavBar extends Component {
            }
          </Toolbar>
        </AppBar>
-      </div>
     )
   }
 }

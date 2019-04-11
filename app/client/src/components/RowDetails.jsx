@@ -39,7 +39,7 @@ const RowDetails = props => {
       )
     } else if (rowData.start_time && !(currentUser.sub === rowData.user_id)){
       return (
-        <p>Active</p>
+        <p>{`Activated by ${rowData.user.first_name}`}</p>
       )
     } else {
       return (

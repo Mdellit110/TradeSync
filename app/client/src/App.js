@@ -20,7 +20,6 @@ import {
   createNewTask,
   verifyToken,
 } from './services/users'
-
 class App extends Component {
   constructor(props) {
     super(props)
@@ -29,6 +28,7 @@ class App extends Component {
       currentUser: {},
       trades: [],
       tasks: [],
+      has_account: true,
       taskFormData: {
         invoice: '',
         location: '',
@@ -64,6 +64,7 @@ class App extends Component {
     this.toggleTask = this.toggleTask.bind(this)
     this.getTasks = this.getTasks.bind(this)
     this.updateTask = this.updateTask.bind(this)
+    this.toggleForm = this.toggleForm.bind(this)
   }
 
   async onRegister(e) {
@@ -163,6 +164,11 @@ class App extends Component {
      },
    }))
   }
+  toggleForm() {
+    this.setState(prevState => ({
+      has_account: !prevState.has_account
+    }))
+  }
 
   async updateTask(task_id, trade_id, body, start) {
     if (start) {
@@ -215,6 +221,8 @@ class App extends Component {
             render={props => (
               !localStorage.getItem('jwt') &&
               <LandingPage
+                hasAccount={this.state.has_account}
+                toggleForm={this.toggleForm}
                 trades={this.state.trades}
                 userFormData={this.state.userFormData}
                 loginFormData={this.state.loginFormData}

@@ -1,6 +1,7 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom';
 import TasksList from './TasksList'
+import Button from '@material-ui/core/Button';
 
 const TradePage = props => {
   const {match, currentUser} = props
@@ -9,7 +10,7 @@ const TradePage = props => {
     <>
     <div className='trade-tasks-container'>
       {currentUser.is_boss &&
-        <button onClick={() => props.history.push(`/company/1/trades/${trade_id}/new-task`)}>Add a task</button>
+        <Button color='secondary' onClick={() => props.history.push(`/company/1/trades/${trade_id}/new-task`)}>Add a task</Button>
       }
       <TasksList
         currentUser={props.currentUser}

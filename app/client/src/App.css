@@ -1,54 +1,80 @@
+* {
+  transition: 100ms;
+}
 .App {
   text-align: center;
 }
 .body {
   width: 100vw;
-  height: 100%;
+  height: 100vh;
+  overflow-x: scroll;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #7ABA7A;
-  color: #B76EB8;
-}
-.navbar {
-  width: 100%;
-  height: 10vh;
-  background-color: #B76EB8;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.navbar h1 {
-  padding-left: 2%;
-}
-.navbar-links {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 50%;
-}
-.navbar-links a {
-  text-decoration: none;
-  font-size: 1.5rem;
-  color: #028482;
+  background-color: #EFEFEF;
+  color: #bb4d00;
 }
 
+.landing-page {
+  padding: 3%;
+  background-color: white;
+  border-radius: 10px;
+  width: 30%;
+  margin-bottom: 10%;
+}
+.landing-page p {
+  margin: 0;
+}
+.form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.form-input {
+  width: 100%;
+  height: 20%;
+}
+.is-boss-input {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.form-container input {
+  margin-bottom: 2%;
+  border: none;
+  border-bottom: 1px solid black;
+  background-color: none;
+  width: 100%;
+}
+.checkbox-input input {
+  width: auto;
+}
 .company-trades-container {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
-  background-color: teal;
-  width: 90%;
-  height: 80%;
+  justify-content: center;
+  background-color: #ffad42;
+  width: 80%;
+  margin-bottom: 30%;
   overflow: scroll;
-  border-color: teal;
+  border-color: #ffad42;
+  border-radius: 10px;
 }
 .trade-container {
+  border-radius: 10px;
   margin: 2%;
-  width: 20%;
+  width: 200px;
   height: 40%;
   background-color: white;
+}
+.trade-container:hover {
+  border-radius: 10px;
+  margin: 2%;
+  width: 200px;
+  height: 40%;
+  background-color: grey;
 }
 .trade-container p {
   text-align: left;
