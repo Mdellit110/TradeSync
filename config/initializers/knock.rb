@@ -1,5 +1,5 @@
 Knock.setup do |config|
-  config.token_secret_signature_key = -> { Rails.application.credentials.fetch(:secret_key_base) }
+  config.token_secret_signature_key = -> { '4u5498q3tyhshgsldkfjfh8h' }
   ## Expiration claim
   ## ----------------
   ##
